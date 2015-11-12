@@ -24,7 +24,7 @@ tidy <- data.frame(timestamp=character(),lat=double(),lon=double(),value=double(
 ##split the table according rows indicating a new variable
 while (nrow(mydata) >0) {
       mydata2 <- mydata[max(grep("sensor.model",mydata$timestamp)):nrow(mydata),]
-      mydata2 <- cbind(mydata2,sens_mode=mydata2[2,1],sens_pck=mydata2[2,2],sens_var=mydata2[2,3],sens_inu=mydata2[2,4])
+      mydata2 <- cbind(mydata2,sens_mode=mydata2[2,1],sens_pck=mydata2[2,2],sens_var=mydata2[2,3],sens_uni=mydata2[2,4])
       mydata2 <- mydata2[4:nrow(mydata2),]
       
       tidy <- rbind(tidy,mydata2)
@@ -33,6 +33,7 @@ while (nrow(mydata) >0) {
 
 }
 
+tidy$datetime <- paste(substr(tidy$timestamp,1,10),substr(tidy$timestamp,12,19))
 write.csv(tidy,file="~/Desktop/aircasting.csv")
 
 
